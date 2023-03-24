@@ -1,0 +1,1 @@
+pyrcc5 modern.qrc -o modern.py

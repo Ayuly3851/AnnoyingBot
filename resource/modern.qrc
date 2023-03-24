@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="button">
+    <file>icons/setting.png</file>
+    <file>icons/bot.png</file>
+    <file>icons/chat.png</file>
+    <file>icons/close.png</file>
+    <file>icons/folder.png</file>
+    <file>icons/info.png</file>
+    <file>icons/kick.png</file>
+    <file>icons/main-menu.png</file>
+    <file>icons/maximized.png</file>
+    <file>icons/minimized.png</file>
+    <file>icons/start.png</file>
+    <file>icons/stop.png</file>
+  </qresource>
+</RCC>
