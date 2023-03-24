@@ -1,4 +1,4 @@
-from javascript import require, On
+from javascript import require, On, AsyncTask, once, off
 mineflayer = require('mineflayer')
 from time import sleep
 from Utility import Utility
@@ -53,6 +53,13 @@ class Bot:
 		def spawn(this):
 			sleep(self.DelayLeft) if self.BotType == 1 and self.LeftType == 1 else None
 			Bot.quit() if self.BotType == 1 and self.LeftType == 1 else None
+			def KillAura():
+				print(Bot.entities)
+			KillAura() if self.BotType == 2 else None
+
+		@On(Bot, 'chat')
+		def logger_chat(this, sender, message, *a):
+			print(f"{sender} >> {message}") if self.BotType == 0 else None
 
 		@On(Bot, 'error')
 		def error(err, *a):
@@ -91,6 +98,12 @@ class Annoying:
 		self.Table = config['table']
 		self._init_()
 
+	def OffEventListener(self, Bot):
+		off(Bot, 'login', Bot.login)
+		off(Bot, 'spawn', Bot.spawn)
+		off(Bot, 'chat', Bot.logger_chat)
+		off(Bot, 'error', Bot.error)
+
 	def JoinLeft(self, Window, stop_event):
 		AmountBot = 1
 		while True and not stop_event.isSet():
@@ -100,6 +113,7 @@ class Annoying:
 			sleep(self.DelayLogin)
 			Window.uic.botcount_lb.setText(f' {AmountBot} / ∞')
 			AmountBot += 1
+		self.OffEventListener(self.Bot)
 
 	def SpamChat(self, Window, stop_event, MaxBot):
 		AmountBot = 1
@@ -115,6 +129,7 @@ class Annoying:
 			for bot in self.Bot.BotChatSpamList:
 				sleep(self.DelayChat)
 				bot.chat(self.ChatMessage)
+		self.OffEventListener(self.Bot)
 
 	def SpamBot(self, Window, stop_event, MaxBot):
 		AmountBot = 1
@@ -125,7 +140,19 @@ class Annoying:
 			sleep(self.DelayLogin)
 			Window.uic.botcount_lb.setText(f' {AmountBot} / {MaxBot}')
 			AmountBot += 1
-			
+		self.OffEventListener(self.Bot)
+
+	def KickBot(self, Type, Username = None):
+		if Type == 0:
+			for Bot in self.BotNormalList:
+				if Bot.username == Username:
+					Bot.quit()
+		elif Type == 2:
+			for Bot in self.BotJoinSpamList:
+				Bot.quit()
+		elif Type == 3:
+			for Bot in self.BotChatSpamList:
+				Bot.quit()
 # class Bot:
 # 	def spawn(self, host, port, botname, ver, login_msg, left_msg, chatlog):
 # 		bot = mineflayer.createBot({
