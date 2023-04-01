@@ -48,15 +48,12 @@ class UIFunction:
 		self.Window.uic.start_btn_2.clicked.connect(lambda: self.Start())
 		self.Window.uic.stop_btn.clicked.connect(lambda: self.Stop())
 		self.Window.uic.stop_btn_2.clicked.connect(lambda: self.Stop())
-		self.Window.uic.kick_btn.clicked.connect(self.Window.kickbot)
-		self.Window.uic.spawn_btn.clicked.connect(self.Window.spawnbot)
-		self.Window.uic.chat_btn.clicked.connect(self.Window.chat)
+		# self.Window.uic.spawn_btn.clicked.connect(self.Window.spawnbot)
+		# self.Window.uic.chat_btn.clicked.connect(self.Window.chat)
 
 		## DISABLE BUTTON ##
 		self.Window.uic.stop_btn.setEnabled(False)
 		self.Window.uic.stop_btn_2.setEnabled(False)
-		self.Window.uic.kick_btn.setEnabled(False)
-		self.Window.uic.kick_btn_2.setEnabled(False)
 		self.Window.uic.quit_btn.setEnabled(False)
 		## SET STATUS ##
 		self.Window.uic.status_lb.setText('Off')
@@ -85,67 +82,52 @@ class UIFunction:
 			'table': self.Window.uic.botstatus,
 		}
 		## SET UI ##
-		self.SetUiStart()
+		self.SetUi(True)
 		## SET CONFIG FOR ANNOYING ##
 		self.Annoying.SetConfig(self.config)
+		## GET METHOD ##
+		self.method = self.Window.uic.method_cb.currentIndex() + 1
 		## START ANNOYING ##
-		if self.Window.uic.method_cb.currentIndex() + 1 == 1:
+		if self.method == 1:
 			self.stop_event=threading.Event()
 			self.c_thread = threading.Thread(target=self.Annoying.JoinLeft, args=(self.Window, self.stop_event,))
 			self.c_thread.start()
-		elif self.Window.uic.method_cb.currentIndex() + 1 == 2:
+		elif self.method == 2:
 			self.stop_event=threading.Event()
 			self.c_thread = threading.Thread(target=self.Annoying.SpamBot, args=(self.Window, self.stop_event, self.Window.uic.maxbot_sp.value(),))
 			self.c_thread.start()
-		elif self.Window.uic.method_cb.currentIndex() + 1 == 3:
+		elif self.method == 3:
 			self.stop_event=threading.Event()
 			self.c_thread = threading.Thread(target=self.Annoying.SpamChat, args=(self.Window, self.stop_event, self.Window.uic.maxbot2_sp.value(),))
 			self.c_thread.start()
 
 	## STOP ANNOYING BOT ##
 	def Stop(self,):
-		self.SetUiStop()
+		self.SetUi(False)
+		self.KickBot()
 		self.stop_event.set()
 
-	## SET UI WHEN START BUTTON CLICKED ##
-	def SetUiStart(self,):
-		self.Window.uic.ip_tb.setEnabled(False)
-		self.Window.uic.port_sp.setEnabled(False)
-		self.Window.uic.method_cb.setEnabled(False)
-		self.Window.uic.ver_cb.setEnabled(False)
-		self.Window.uic.name_path_tb.setEnabled(False)
-		self.Window.uic.browse_btn.setEnabled(False)
-		self.Window.uic.ran_name_cb.setEnabled(False)
-		self.Window.uic.start_btn.setEnabled(False)
-		self.Window.uic.start_btn_2.setEnabled(False)
-		self.Window.uic.maxbot2_sp.setEnabled(False)
-		self.Window.uic.maxbot_sp.setEnabled(False)
+	## KICK BOT IN SERVER ##
+	def KickBot(self,):
+		self.Annoying.KickBot(self.Window.uic.method_cb.currentIndex() + 1)
 
-		self.Window.uic.stop_btn.setEnabled(True)
-		self.Window.uic.stop_btn_2.setEnabled(True)
-		self.Window.uic.kick_btn.setEnabled(True)
-		self.Window.uic.kick_btn_2.setEnabled(True)
+	## SET UI WHEN START OR STOP BUTTON CLICKED ##
+	def SetUi(self, _bool):
+		self.Window.uic.ip_tb.setEnabled(not _bool)
+		self.Window.uic.port_sp.setEnabled(not _bool)
+		self.Window.uic.method_cb.setEnabled(not _bool)
+		self.Window.uic.ver_cb.setEnabled(not _bool)
+		self.Window.uic.name_path_tb.setEnabled(not _bool)
+		self.Window.uic.browse_btn.setEnabled(not _bool)
+		self.Window.uic.ran_name_cb.setEnabled(not _bool)
+		self.Window.uic.start_btn.setEnabled(not _bool)
+		self.Window.uic.start_btn_2.setEnabled(not _bool)
+		self.Window.uic.maxbot2_sp.setEnabled(not _bool)
+		self.Window.uic.maxbot_sp.setEnabled(not _bool)
 
-		self.Window.uic.status_lb.setText('On')
-		self.Window.uic.status_lb.setStyleSheet('color: rgb(0, 255, 59)')
+		self.Window.uic.stop_btn.setEnabled(_bool)
+		self.Window.uic.stop_btn_2.setEnabled(_bool)
 
-	## SET UI WHEN STOP BUTTON CLICKED ##
-	def SetUiStop(self,):
-		self.Window.uic.ip_tb.setEnabled(True)
-		self.Window.uic.port_sp.setEnabled(True)
-		self.Window.uic.method_cb.setEnabled(True)
-		self.Window.uic.ver_cb.setEnabled(True)
-		self.Window.uic.name_path_tb.setEnabled(True)
-		self.Window.uic.browse_btn.setEnabled(True)
-		self.Window.uic.ran_name_cb.setEnabled(True)
-		self.Window.uic.start_btn.setEnabled(True)
-		self.Window.uic.start_btn_2.setEnabled(True)
-		self.Window.uic.maxbot2_sp.setEnabled(True)
-		self.Window.uic.maxbot_sp.setEnabled(True)
+		self.Window.uic.status_lb.setText('On') if _bool else self.Window.uic.status_lb.setText('Off')
+		self.Window.uic.status_lb.setStyleSheet('color: rgb(0, 255, 59)') if _bool else self.Window.uic.status_lb.setStyleSheet('color: rgb(255, 45, 3)')
 
-		self.Window.uic.stop_btn.setEnabled(False)
-		self.Window.uic.stop_btn_2.setEnabled(False)
-
-		self.Window.uic.status_lb.setText('Off')
-		self.Window.uic.status_lb.setStyleSheet('color: rgb(255, 45, 3)')
-		self.Window.uic.botcount_lb.setText(f'0/0')

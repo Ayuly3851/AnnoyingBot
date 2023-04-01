@@ -2,15 +2,16 @@
 
 # SETUP FUNCTION FOR THE UI
 
-## IMPORT QT ##
 from PyQt5 import (QtCore, QtGui, QtWidgets)
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import * 
-## LOCAL FILE ##
+
 from ui_draw import Ui_MainWindow
 from ui_function import UIFunction
 from Utility import SideGrip
+## CLEAR CONSOLE ##
+__import__('os').system('cls')
 
 class Ui_Function(object):
 	def setupUiFunction(self, MainWindow):

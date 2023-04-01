@@ -650,30 +650,6 @@ class Ui_MainWindow(object):
         self.stop_btn_2.setIconSize(QtCore.QSize(25, 25))
         self.stop_btn_2.setObjectName("stop_btn_2")
         self.horizontalLayout_6.addWidget(self.stop_btn_2)
-        self.kick_btn = QtWidgets.QPushButton(self.frame_7)
-        self.kick_btn.setMinimumSize(QtCore.QSize(75, 30))
-        self.kick_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.kick_btn.setStyleSheet("#kick_btn{\n"
-"/*    border: 2px solid rgb(184, 184, 184);*/\n"
-"    border-radius: 3px;\n"
-"    \n"
-"    font: 9pt \"JetBrains Mono\";\n"
-"}\n"
-"\n"
-"#kick_btn::hover{\n"
-"    border-color: #539dd8;\n"
-"    margin-left: 0px;\n"
-"    color: white;\n"
-"    \n"
-"    background-color: rgba(83, 157, 216, 50);\n"
-"    \n"
-"}")
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/button/icons/kick.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.kick_btn.setIcon(icon8)
-        self.kick_btn.setIconSize(QtCore.QSize(22, 22))
-        self.kick_btn.setObjectName("kick_btn")
-        self.horizontalLayout_6.addWidget(self.kick_btn)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem2)
         self.verticalLayout_5.addWidget(self.frame_7)
@@ -1224,6 +1200,8 @@ class Ui_MainWindow(object):
 "    background-color: rgba(83, 157, 216, 50);\n"
 "    \n"
 "}")
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(":/button/icons/kick.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.quit_btn.setIcon(icon8)
         self.quit_btn.setIconSize(QtCore.QSize(22, 22))
         self.quit_btn.setObjectName("quit_btn")
@@ -1413,29 +1391,6 @@ class Ui_MainWindow(object):
         self.stop_btn.setIconSize(QtCore.QSize(25, 25))
         self.stop_btn.setObjectName("stop_btn")
         self.horizontalLayout_7.addWidget(self.stop_btn)
-        self.kick_btn_2 = QtWidgets.QPushButton(self.header)
-        self.kick_btn_2.setMinimumSize(QtCore.QSize(35, 30))
-        self.kick_btn_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.kick_btn_2.setStyleSheet("#kick_btn_2{\n"
-"/*    border: 2px solid rgb(184, 184, 184);*/\n"
-"    border-radius: 3px;\n"
-"    \n"
-"    font: 9pt \"JetBrains Mono\";\n"
-"}\n"
-"\n"
-"#kick_btn_2::hover{\n"
-"    border-color: #539dd8;\n"
-"    margin-left: 0px;\n"
-"    color: white;\n"
-"    \n"
-"    background-color: rgba(83, 157, 216, 50);\n"
-"    \n"
-"}")
-        self.kick_btn_2.setText("")
-        self.kick_btn_2.setIcon(icon8)
-        self.kick_btn_2.setIconSize(QtCore.QSize(22, 22))
-        self.kick_btn_2.setObjectName("kick_btn_2")
-        self.horizontalLayout_7.addWidget(self.kick_btn_2)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem13)
         self.mini_btn = QtWidgets.QPushButton(self.header)
@@ -1556,8 +1511,6 @@ class Ui_MainWindow(object):
         self.start_btn_2.setText(_translate("MainWindow", "Start"))
         self.stop_btn_2.setToolTip(_translate("MainWindow", "Stop"))
         self.stop_btn_2.setText(_translate("MainWindow", "Stop"))
-        self.kick_btn.setToolTip(_translate("MainWindow", "Kick all bot in server"))
-        self.kick_btn.setText(_translate("MainWindow", "Kick"))
         self.annoying_gr_3.setTitle(_translate("MainWindow", "BotStatus"))
         self.botstatus.setSortingEnabled(False)
         item = self.botstatus.horizontalHeaderItem(0)
@@ -1633,7 +1586,6 @@ class Ui_MainWindow(object):
         self.logbot_gr.setTitle(_translate("MainWindow", "LogBot"))
         self.start_btn.setToolTip(_translate("MainWindow", "Start"))
         self.stop_btn.setToolTip(_translate("MainWindow", "Stop"))
-        self.kick_btn_2.setToolTip(_translate("MainWindow", "Kick all bot in server"))
         self.mini_btn.setToolTip(_translate("MainWindow", "Minimized"))
         self.max_btn.setToolTip(_translate("MainWindow", "Maximized"))
         self.close_btn.setToolTip(_translate("MainWindow", "Close"))

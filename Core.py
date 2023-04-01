@@ -1,4 +1,8 @@
-from javascript import require, On, AsyncTask, once, off
+# -*- coding: utf-8 -*-
+
+# CORE FOR ANNOYINGBOT
+
+from javascript import require, On, Once, AsyncTask, once, off
 mineflayer = require('mineflayer')
 from time import sleep
 from Utility import Utility
@@ -13,6 +17,9 @@ BotType:
 
 class Bot:
 	def __init__(self):
+		self.OffEventListener = False
+		self.log_chat = ""
+
 		self.BotJoinSpamList = []
 		self.BotChatSpamList = []
 		self.BotNormalList = []
@@ -59,12 +66,17 @@ class Bot:
 
 		@On(Bot, 'chat')
 		def logger_chat(this, sender, message, *a):
-			print(f"{sender} >> {message}") if self.BotType == 0 else None
+			self.log_chat = self.log_chat + f"{sender} >> {message}\n" if self.BotType == 0 else None
 
 		@On(Bot, 'error')
 		def error(err, *a):
 			print(f"[ERROR] Bot {Bot.username} get error \n{err}")
 
+		if self.OffEventListener:
+			off(Bot, 'login', login)
+			off(Bot, 'spawn', spawn)
+			off(Bot, 'chat', logger_chat)
+			off(Bot, 'error', error)
 
 class Annoying:
 	def _init_(self,):
@@ -98,12 +110,6 @@ class Annoying:
 		self.Table = config['table']
 		self._init_()
 
-	def OffEventListener(self, Bot):
-		off(Bot, 'login', Bot.login)
-		off(Bot, 'spawn', Bot.spawn)
-		off(Bot, 'chat', Bot.logger_chat)
-		off(Bot, 'error', Bot.error)
-
 	def JoinLeft(self, Window, stop_event):
 		AmountBot = 1
 		while True and not stop_event.isSet():
@@ -113,7 +119,6 @@ class Annoying:
 			sleep(self.DelayLogin)
 			Window.uic.botcount_lb.setText(f' {AmountBot} / ∞')
 			AmountBot += 1
-		self.OffEventListener(self.Bot)
 
 	def SpamChat(self, Window, stop_event, MaxBot):
 		AmountBot = 1
@@ -129,7 +134,6 @@ class Annoying:
 			for bot in self.Bot.BotChatSpamList:
 				sleep(self.DelayChat)
 				bot.chat(self.ChatMessage)
-		self.OffEventListener(self.Bot)
 
 	def SpamBot(self, Window, stop_event, MaxBot):
 		AmountBot = 1
@@ -140,7 +144,6 @@ class Annoying:
 			sleep(self.DelayLogin)
 			Window.uic.botcount_lb.setText(f' {AmountBot} / {MaxBot}')
 			AmountBot += 1
-		self.OffEventListener(self.Bot)
 
 	def KickBot(self, Type, Username = None):
 		if Type == 0:
@@ -153,106 +156,3 @@ class Annoying:
 		elif Type == 3:
 			for Bot in self.BotChatSpamList:
 				Bot.quit()
-# class Bot:
-# 	def spawn(self, host, port, botname, ver, login_msg, left_msg, chatlog):
-# 		bot = mineflayer.createBot({
-# 			'host': host,
-# 			'port': port,
-# 			'username': botname,
-# 			'version': ver,
-# 			})
-
-# 		@On(bot, 'login')
-# 		def login(this):
-# 			bot.chat(login_msg) if login_msg != '' else ''
-
-# 		@On(bot, 'chat')
-# 		def _chat(b, _usr, _msg, *a):
-# 			print(f'{_usr} >> {_msg}')
-# 			__log = chatlog.toPlainText()
-# 			Log_MSG = f'{__log}{_usr} >> {_msg}'
-# 			# chatlog.setText(f'{__log}{usr} >> {msg}\n')
-
-# 		@On(bot, 'error')
-# 		def error(err, *a):
-# 			print(err, a)
-# 		return bot
-
-
-# class AnnoyingBot:
-
-# 	def JoinLeft(self, host, port, botname, version, delayleft, lefttype, table):
-# 		bot = mineflayer.createBot({
-# 		  'host': host,
-# 		  'port': port,
-# 		  'username': botname,
-# 		  'version': version,
-# 		})
-
-# 		@On(bot, 'login')
-# 		def login(this):
-# 			if lefttype == 0:
-# 				print(f'NOFITICATION - LOGGED - {botname} has logged in to {host}:{port}')
-# 				time.sleep(delayleft)
-# 				bot.quit()
-# 				print(f"NOFITICATION - QUIT - {botname} has quit.")
-
-# 		@On(bot, "error")
-# 		def error(err, *a):
-# 			print(f"NOFITICATION - ERROR - {botname}: Connect ERROR")
-
-# 		@On(bot, 'spawn')
-# 		def spawn(this):
-# 			if lefttype == 1:
-# 				print(f'NOFITICATION - LOGGED - {botname} has logged in to {host}:{port}')
-# 				time.sleep(delayleft)
-# 				bot.quit()
-# 				print(f"NOFITICATION - QUIT - {botname} has quit.")
-
-# 	def SpamJoin(self, host, port, botname, version, table):
-# 		bot = mineflayer.createBot({
-# 		  'host': host,
-# 		  'port': port,
-# 		  'username': botname,
-# 		  'version': version,
-# 		})
-
-# 		@On(bot, 'login')
-# 		def login(this):
-# 			print(f'NOFITICATION - LOGGED - {botname} has logged in to {host}:{port}')
-# 			table.insertRow(table.rowCount())
-# 			bot = QtWidgets.QTableWidgetItem(botname)
-# 			table.setItem(table.rowCount()-1, 0, bot)
-# 			status = QtWidgets.QTableWidgetItem("Connected")
-# 			table.setItem(table.rowCount()-1, 1, status)
-
-# 		@On(bot, "error")
-# 		def error(err, *a):
-# 			print(f"NOFITICATION - ERROR - {botname}: Connect ERROR")
-# 		return bot
-
-# 	def SpamChat(self, host, port, botname, version, msg, delay, table):
-# 		bot = mineflayer.createBot({
-# 		  'host': host,
-# 		  'port': port,
-# 		  'username': botname,
-# 		  'version': version,
-# 		})
-
-# 		@On(bot, 'login')
-# 		def login(this):
-# 			print(f'NOFITICATION - LOGGED - {botname} has logged in to {host}:{port}')
-# 			table.insertRow(table.rowCount())
-# 			bot = QtWidgets.QTableWidgetItem(botname)
-# 			table.setItem(table.rowCount()-1, 0, bot)
-# 			status = QtWidgets.QTableWidgetItem("Connected")
-# 			table.setItem(table.rowCount()-1, 1, status)
-
-# 		@On(bot, 'spawn')
-# 		def spawn(this):
-# 			bot.chat(msg)
-# 			time.sleep(delay)
-
-# 		@On(bot, "error")
-# 		def error(err, *a):
-# 			print(f"NOFITICATION - ERROR - {botname}: Connect ERROR")

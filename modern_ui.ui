@@ -1342,52 +1342,6 @@ font: 81 10pt &quot;JetBrains Mono&quot;;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="kick_btn">
-                   <property name="minimumSize">
-                    <size>
-                     <width>75</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="toolTip">
-                    <string>Kick all bot in server</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">#kick_btn{
-/*	border: 2px solid rgb(184, 184, 184);*/
-	border-radius: 3px;
-	
-	font: 9pt &quot;JetBrains Mono&quot;;
-}
-
-#kick_btn::hover{
-	border-color: #539dd8;
-	margin-left: 0px;
-	color: white;
-	
-	background-color: rgba(83, 157, 216, 50);
-	
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>Kick</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="resource/modern.qrc">
-                     <normaloff>:/button/icons/kick.png</normaloff>:/button/icons/kick.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>22</width>
-                     <height>22</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <spacer name="horizontalSpacer_2">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -3137,52 +3091,6 @@ border-radius: 3px;</string>
           <size>
            <width>25</width>
            <height>25</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="kick_btn_2">
-         <property name="minimumSize">
-          <size>
-           <width>35</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Kick all bot in server</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#kick_btn_2{
-/*	border: 2px solid rgb(184, 184, 184);*/
-	border-radius: 3px;
-	
-	font: 9pt &quot;JetBrains Mono&quot;;
-}
-
-#kick_btn_2::hover{
-	border-color: #539dd8;
-	margin-left: 0px;
-	color: white;
-	
-	background-color: rgba(83, 157, 216, 50);
-	
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resource/modern.qrc">
-           <normaloff>:/button/icons/kick.png</normaloff>:/button/icons/kick.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>22</width>
-           <height>22</height>
           </size>
          </property>
         </widget>
